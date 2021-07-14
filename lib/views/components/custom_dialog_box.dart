@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:new_wassa/views/components/voiceconstants.dart';
 import 'package:new_wassa/views/styles/styles.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class CustomDialogBox extends StatefulWidget {
   final String title, descriptions, text;
@@ -20,6 +21,16 @@ class CustomDialogBox extends StatefulWidget {
 }
 
 class _CustomDialogBoxState extends State<CustomDialogBox> {
+  bool _isListening = false;
+  late stt.SpeechToText _speech;
+  String _text = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _speech = stt.SpeechToText();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -35,7 +46,6 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
   TextEditingController password = new TextEditingController();
 
   contentBox(context) {
-    bool _isListening = true;
     return Stack(
       children: <Widget>[
         Container(
@@ -163,5 +173,25 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
     );
   }
 
-  void _listen() {}
+  void _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) => print('onStatus: $val'),
+        onError: (val) => print('onError: $val'),
+      );
+      if (available) {
+        setState(() => _isListening = true);
+        _speech.listen(
+          localeId: 'fr-FR',
+          onResult: (val) => setState(() {
+            _text = val.recognizedWords;
+            console.log('texte : ' + _text);
+          }),
+        );
+      }
+    } else {
+      setState(() => _isListening = false);
+      _speech.stop();
+    }
+  }
 }
