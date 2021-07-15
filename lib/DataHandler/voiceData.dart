@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 
 class VoiceData extends ChangeNotifier {
-  int? langue;
-  String? activercommandeVocal;
-  String? reponse;
+  String? langue = 'fr';
+  bool? activercommandeVocal = true;
+  int? reponse;
 
-  void updateLangue(int? data) {
+  void updateLangue(String? data) {
     langue = data;
     notifyListeners();
   }
 
-  void updateActiverCommanevocal(String? data) {
+  void updateActiverCommandeVocal(bool? data) {
     activercommandeVocal = data;
     notifyListeners();
   }
 
-  void updateResponse(String? data) {
+  void updateResponse(int? data) {
     reponse = data;
     notifyListeners();
   }

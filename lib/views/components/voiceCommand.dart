@@ -1,11 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:new_wassa/DataHandler/voiceData.dart';
 import 'package:new_wassa/views/components/voiceconstants.dart';
 import 'package:new_wassa/views/styles/styles.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:provider/provider.dart';
 
 class VoiceDialogBox extends StatefulWidget {
   final dynamic audio;
@@ -91,42 +94,26 @@ class _VoiceDialogBoxState extends State<VoiceDialogBox> {
                 BoxShadow(
                     color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
               ]),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              SizedBox(
-                height: 15,
-              ),
-              SizedBox(
-                height: 22,
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      //widget.text,
-                      "VALIDER",
-                      style: TextStyle(fontSize: 18, color: whiteFont),
-                    )),
-              ),
-            ],
-          ),
         ),
         Positioned(
             top: 50,
             right: 10,
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(50)),
-                color: Colors.white,
-              ),
-              child: Icon(Icons.close),
-            )),
+            child: GestureDetector(
+                onTap: () => {
+                      // FERMER LA POP-UP et DESACTIVER VOICE COMMAND
+                      Navigator.of(context).pop(),
+                      Provider.of<VoiceData>(context, listen: false)
+                          .updateActiverCommandeVocal(false)
+                    },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    color: Colors.white,
+                  ),
+                  child: Icon(Icons.close),
+                ))),
         Positioned(
             bottom: 55,
             left: 0,
@@ -229,7 +216,9 @@ class _VoiceDialogBoxState extends State<VoiceDialogBox> {
                 _text.toLowerCase().contains("3")) res = 3;
             if (_text.toLowerCase().contains("quatre") ||
                 _text.toLowerCase().contains("4")) res = 4;
-            print('Res : ' + res.toString());
+            final _voiceData = Provider.of<VoiceData>(context, listen: false);
+            _voiceData.updateResponse(res);
+            print('Res : ' + _voiceData.reponse.toString());
           }),
         );
       }

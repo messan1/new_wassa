@@ -1,10 +1,9 @@
-
 abstract class ConstString {
   static String get ucolis => "UColis";
   static String get welcomeOnDash =>
       "Bonjour Yanne, bienvenue sur votre platforme multiserices";
   static String get shippingTextOnDash =>
-      "Profitzez de nos livraisons express de colis";
+      "Profitez de nos livraisons express de colis";
   static String get shippingTextOnDash2 =>
       "Effectuez vos déplacements en toute simplicité et sécurité";
   static String get colis => "Colis";

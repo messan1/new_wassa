@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_wassa/DataHandler/appData.dart';
 import 'package:new_wassa/DataHandler/userAuth.dart';
+import 'package:new_wassa/DataHandler/voiceData.dart';
 import 'package:new_wassa/app/platformApp.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -34,6 +35,9 @@ class _AppState extends State<App> {
             ),
             ChangeNotifierProvider(
               create: (context) => UserAuth(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => VoiceData(),
             ),
             //Provider(create: (context) => _userBloc),
           ],

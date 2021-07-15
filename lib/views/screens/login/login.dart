@@ -19,6 +19,9 @@ import 'package:new_wassa/constants/constAudio.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:new_wassa/constants/constLangue.dart';
+import 'package:provider/provider.dart';
+import 'package:new_wassa/DataHandler/voiceData.dart';
 
 GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
@@ -45,11 +48,23 @@ class _LoginState extends State<Login> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    /* showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return VoiceDialogBox(audio: data[3]['fr']);
+        }); */
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     final _orientation = MediaQuery.of(context).orientation;
+    final _voiceData = Provider.of<VoiceData>(context, listen: false);
     return ScaffoldPlatform(
-        appBarTitle: "Wassa Wassa",
+        appBarTitle: Langue
+            .appName[Provider.of<VoiceData>(context, listen: false).langue],
         activeBackButton: false,
         appBarIconColor: Colors.black,
         backgroundColor: Colors.white,
@@ -108,7 +123,7 @@ class _LoginState extends State<Login> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return VoiceDialogBox(audio: data[9]['fr']);
+                          return VoiceDialogBox(audio: data[0]['fr']);
                         });
                   },
                 ),
