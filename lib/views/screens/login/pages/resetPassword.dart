@@ -115,7 +115,6 @@ class _ResetPasswordState extends State<ResetPassword> {
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: SC.width(.085)),
           children: [
-        
             VerticalSeparator(height: .018),
             Container(
                 width: 300,
@@ -124,34 +123,33 @@ class _ResetPasswordState extends State<ResetPassword> {
                 child: ImageLoader(image: "assets/images/limage2.png")),
             VerticalSeparator(height: .118),
             PlatformTextFieldForm.textFieldPlatform(
-                title: "Email de recuperation",
-                controller: email,
-                enabled: false,
-                isPassword: false,
-                suffix: Container(),
-                verticalContentPadding: 0),
+              title: "Email de recuperation",
+              controller: email,
+              enabled: false,
+              isPassword: false,
+              suffix: Container(),
+              verticalContentPadding: SC.height(.0175),
+            ),
             VerticalSeparator(height: .018),
-
             VerticalSeparator(height: .118),
             RoundedLoadingButton(
                 height: 7.0.h,
                 color: Colors.black,
-                child: Text('REINITIALISER LE MOT DE PASSE', style: buttonStyle),
+                child:
+                    Text('REINITIALISER LE MOT DE PASSE', style: buttonStyle),
                 controller: _btnController2,
-                onPressed: () {
-
-                }),
+                onPressed: () {}),
             VerticalSeparator(height: .035),
           ],
         ),
       ),
     );
   }
-    Future _selectDate(BuildContext context) async {
+
+  Future _selectDate(BuildContext context) async {
     DatePicker.showDatePicker(context, showTitleActions: true,
         onConfirm: (date) {
       email.text = date.toString().substring(0, 11);
     }, currentTime: DateTime.now(), locale: LocaleType.fr);
   }
-
 }

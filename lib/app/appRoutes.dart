@@ -11,12 +11,12 @@ import 'package:new_wassa/views/screens/signup/signup.dart';
 abstract class AppRoutes {
   static List<GetPage> get routes => [
         GetPage(name: '/onboarding', page: () => OnboardingScreen()),
-        GetPage(name: '/Language', page: () => Language()),
+        GetPage(name: '/', page: () => Language()),
         GetPage(name: '/login', page: () => Login()),
         GetPage(name: '/SignUp', page: () => SignUp()),
         GetPage(name: '/AccountAccess', page: () => AccountAccess()),
         GetPage(name: '/UserInfo', page: () => UserInfo()),
-        GetPage(name: '/', page: () => ResetPassword()),
+        GetPage(name: '/ResetPassword', page: () => ResetPassword()),
 
         // GetPage(name: '/', page: () => UserPage()),
       ];

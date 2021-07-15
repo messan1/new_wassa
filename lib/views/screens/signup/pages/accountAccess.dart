@@ -132,7 +132,9 @@ class _AccountAccessState extends State<AccountAccess> {
                 enabled: false,
                 isPassword: false,
                 suffix: Container(),
-                verticalContentPadding: 0),
+                              verticalContentPadding: SC.height(.0175),
+
+                ),
             VerticalSeparator(height: .018),
             PlatformTextFieldForm.textFieldPlatform(
                 enabled: false,
@@ -140,7 +142,8 @@ class _AccountAccessState extends State<AccountAccess> {
                 title: 'Mot de passe',
                 isPassword: true,
                 controller: password,
-                verticalContentPadding: 0),
+                              verticalContentPadding: SC.height(.0175),
+),
             VerticalSeparator(height: .018),
             PlatformTextFieldForm.textFieldPlatform(
                 enabled: false,
@@ -148,7 +151,8 @@ class _AccountAccessState extends State<AccountAccess> {
                 title: 'Confirmation du mot de pass',
                 isPassword: true,
                 controller: confirmpassword,
-                verticalContentPadding: 0),
+                              verticalContentPadding: SC.height(.0175),
+),
             VerticalSeparator(height: .018),
             DropdownButton<String>(
               //elevation: 5,

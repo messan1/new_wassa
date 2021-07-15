@@ -133,7 +133,9 @@ class _UserInfoState extends State<UserInfo> {
                 enabled: false,
                 isPassword: false,
                 suffix: Container(),
-                verticalContentPadding: 0),
+                              verticalContentPadding: SC.height(.0175),
+
+                ),
             VerticalSeparator(height: .018),
             PlatformTextFieldForm.textFieldPlatform(
                 enabled: false,
@@ -141,14 +143,16 @@ class _UserInfoState extends State<UserInfo> {
                 title: 'Prenom',
                 isPassword: false,
                 controller: password,
-                verticalContentPadding: 0),
+                              verticalContentPadding: SC.height(.0175),
+),
             VerticalSeparator(height: .018),
             GestureDetector(
               child: PlatformTextFieldForm.textFieldPlatform(
                   isPassword: false,
                   enabled: false,
                   title: 'Date de naissance',
-                  verticalContentPadding: 0,
+                                verticalContentPadding: SC.height(.0175),
+
                   suffix: IconButton(
                     icon: Icon(
                       Platform.isIOS
