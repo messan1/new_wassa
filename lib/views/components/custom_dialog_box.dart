@@ -185,7 +185,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           localeId: 'fr-FR',
           onResult: (val) => setState(() {
             _text = val.recognizedWords;
-            console.log('texte : ' + _text);
+            print('texte : ' + _text);
           }),
         );
       }
