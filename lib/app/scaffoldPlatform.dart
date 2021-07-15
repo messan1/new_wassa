@@ -28,6 +28,7 @@ class ScaffoldPlatform extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       resizeToAvoidBottomInset: false,
       key: scaffoldState,
       backgroundColor: backgroundColor,
