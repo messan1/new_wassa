@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/route_manager.dart';
 import 'package:new_wassa/app/scaffoldPlatform.dart';
@@ -18,12 +21,12 @@ import 'package:provider/provider.dart';
 
 GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
-class AccountAccess extends StatefulWidget {
+class UserInfo extends StatefulWidget {
   @override
-  _AccountAccessState createState() => _AccountAccessState();
+  _UserInfoState createState() => _UserInfoState();
 }
 
-class _AccountAccessState extends State<AccountAccess> {
+class _UserInfoState extends State<UserInfo> {
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
 
@@ -99,8 +102,6 @@ class _AccountAccessState extends State<AccountAccess> {
       }
     }
 
-    List<String> listOfValue = ['1', '2', '3', '4', '5'];
-
     return ScaffoldPlatform(
       appBarIconColor: Colors.black,
       backgroundColor: Colors.white,
@@ -119,15 +120,15 @@ class _AccountAccessState extends State<AccountAccess> {
               textAlign: TextAlign.center,
               style: headerStyle,
             ),
+            VerticalSeparator(height: .018),
             Container(
-                width: 300,
-                height: 300,
+                width: 100,
+                height: 100,
                 decoration: BoxDecoration(),
-                child: ImageLoader(
-                  image: 'assets/images/limage2.png',
-                )),
+                child: ImageLoader(image: "assets/photoUser.png")),
+            VerticalSeparator(height: .118),
             PlatformTextFieldForm.textFieldPlatform(
-                title: "Email",
+                title: "Nom",
                 controller: email,
                 enabled: false,
                 isPassword: false,
@@ -137,52 +138,55 @@ class _AccountAccessState extends State<AccountAccess> {
             PlatformTextFieldForm.textFieldPlatform(
                 enabled: false,
                 suffix: Container(),
-                title: 'Mot de passe',
-                isPassword: true,
+                title: 'Prenom',
+                isPassword: false,
                 controller: password,
                 verticalContentPadding: 0),
             VerticalSeparator(height: .018),
-            PlatformTextFieldForm.textFieldPlatform(
-                enabled: false,
-                suffix: Container(),
-                title: 'Confirmation du mot de pass',
-                isPassword: true,
-                controller: confirmpassword,
-                verticalContentPadding: 0),
-            VerticalSeparator(height: .018),
-            DropdownButton<String>(
-              //elevation: 5,
-              style: TextStyle(color: Colors.black),
-
-              items: <String>[
-                'Cousier',
-                'Client',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              hint: Text(
-                "Choisissez Votre Metier".toUpperCase(),
-                style: inputStyle,
-              ),
-              onChanged: (value) {
-                setState(() {});
+            GestureDetector(
+              child: PlatformTextFieldForm.textFieldPlatform(
+                  isPassword: false,
+                  enabled: false,
+                  title: 'Date de naissance',
+                  verticalContentPadding: 0,
+                  suffix: IconButton(
+                    icon: Icon(
+                      Platform.isIOS
+                          ? CupertinoIcons.calendar
+                          : Icons.calendar_today_rounded,
+                      color: blackFont,
+                    ),
+                    onPressed: () async {
+                      
+                          await _selectDate(context);
+                    },
+                  ),
+                  controller: email),
+              onTap: () async {
+                
+                          await _selectDate(context);
               },
             ),
-            VerticalSeparator(height: .035),
+            VerticalSeparator(height: .118),
             RoundedLoadingButton(
                 height: 7.0.h,
                 color: Colors.black,
                 child: Text('Continuer', style: buttonStyle),
                 controller: _btnController2,
-                onPressed: () {}),
-            VerticalSeparator(height: .035),
+                onPressed: () {
 
+                }),
+            VerticalSeparator(height: .035),
           ],
         ),
       ),
     );
   }
+    Future _selectDate(BuildContext context) async {
+    DatePicker.showDatePicker(context, showTitleActions: true,
+        onConfirm: (date) {
+      email.text = date.toString().substring(0, 11);
+    }, currentTime: DateTime.now(), locale: LocaleType.fr);
+  }
+
 }

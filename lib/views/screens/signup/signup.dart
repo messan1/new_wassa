@@ -1,4 +1,6 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'dart:async';
+
+import 'package:sizer/sizer.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:new_wassa/views/components/simpleButton.dart';
 import 'package:new_wassa/views/components/verticalSeparator.dart';
 import 'package:new_wassa/views/styles/styles.dart';
 import 'package:provider/provider.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -18,6 +21,20 @@ class SignUp extends StatefulWidget {
 GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
 class _SignUpState extends State<SignUp> {
+  final RoundedLoadingButtonController _btnController =
+      RoundedLoadingButtonController();
+  TextEditingController email = new TextEditingController();
+
+  TextEditingController password = new TextEditingController();
+  final RoundedLoadingButtonController _btnController2 =
+      RoundedLoadingButtonController();
+
+  void _doSomething(RoundedLoadingButtonController controller) async {
+    Timer(Duration(seconds: 3), () {
+      controller.success();
+    });
+  }
+
   String? phone;
   @override
   void initState() {
@@ -86,7 +103,7 @@ class _SignUpState extends State<SignUp> {
           ),
           SizedBox(
             height: _orientation == Orientation.portrait
-                ? _size.height * .375
+                ? _size.height * .275
                 : _size.width * .375,
             child: Form(
                 child: Column(
@@ -97,7 +114,7 @@ class _SignUpState extends State<SignUp> {
                   child: InternationalPhoneNumberInput(
                     onInputChanged: (PhoneNumber number) {},
                     selectorConfig: SelectorConfig(
-                      selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                      selectorType: PhoneInputSelectorType.DIALOG,
                     ),
                     ignoreBlank: false,
                     autoValidateMode: AutovalidateMode.disabled,
@@ -107,7 +124,7 @@ class _SignUpState extends State<SignUp> {
                     formatInput: false,
                     keyboardType: TextInputType.numberWithOptions(
                         signed: true, decimal: true),
-                    inputBorder: OutlineInputBorder(),
+                    // inputBorder: OutlineInputBorder(),
                     onSaved: (PhoneNumber number) {
                       setState(() {
                         number = number;
@@ -118,24 +135,29 @@ class _SignUpState extends State<SignUp> {
               ],
             )),
           ),
-          VerticalSeparator(height: .065), //Connexion
-
+          SizedBox(
+            height: _orientation == Orientation.portrait
+                ? _size.height * .275
+                : _size.width * .375,
+          ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SimpleButton(
-              title: 'Inscription',
-              onTap: () async {
-                _showLoading();
-                //String phone =
-                //  Provider.of<UserAuth>(context, listen: false).phoneNumber;
-
-                //Get.toNamed("/verification");
-              },
-              color: Colors.red,
-              normalCase: true,
-              whiteMode: true,
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              children: [
+                Text(
+                  'Si vous Contnnnez vous recevrez peut etre un SMS de verification. Des Frais de message peuvent s appliquer',textAlign:TextAlign.center,
+                  style: messagestyle),
+                
+                SizedBox(height: 12),
+                RoundedLoadingButton(
+                    height: 7.0.h,
+                    color: Colors.black,
+                    child: Text('Inscription', style: buttonStyle),
+                    controller: _btnController2,
+                    onPressed: () {}),
+              ],
             ),
-          ), //Inscription
+          ),
         ],
       ),
     );

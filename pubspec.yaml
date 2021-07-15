@@ -30,7 +30,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   extended_image: ^4.1.0
   flag: ^5.0.1
+  flutter_datetime_picker: ^1.5.1
   flutter_easyloading: ^3.0.0
+  progress_state_button: ^1.0.3
   flutter_polyline_points: ^1.0.0
   flutter_secure_storage: ^4.2.0
   font_awesome_flutter: ^9.1.0
@@ -38,8 +40,10 @@ dependencies:
   get: ^4.1.4
   google_maps_flutter: ^2.0.6
   http: ^0.13.3
+  image_picker: ^0.8.1+4
   intl_phone_number_input: ^0.7.0+2
   json_annotation: ^4.0.1
+  loader_overlay: ^2.0.2
   permission_handler: ^8.1.2
   provider: ^5.0.0
   rounded_loading_button: ^2.0.5
@@ -96,4 +100,3 @@ flutter:
     - assets/audio/fr/
     - assets/audio/en/
     - assets/audio/dioula/
-    - assets/audio/more/
