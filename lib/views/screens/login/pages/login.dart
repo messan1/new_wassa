@@ -21,8 +21,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-
-
 GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
 class Login extends StatefulWidget {

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_wassa/views/components/custom_dialog_box.dart';
 import 'package:new_wassa/views/screens/login/components/networkGroup.dart';
 import 'package:new_wassa/views/screens/login/components/separator.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +12,10 @@ import 'package:new_wassa/utils/sizeCalculator.dart';
 import 'package:new_wassa/views/components/linkButton.dart';
 import 'package:new_wassa/views/components/platformTextFieldForm.dart';
 import 'package:new_wassa/views/components/verticalSeparator.dart';
+import 'package:new_wassa/views/components/voiceCommand.dart';
 import 'package:new_wassa/views/styles/styles.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:new_wassa/constants/constAudio.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -108,12 +108,7 @@ class _LoginState extends State<Login> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return CustomDialogBox(
-                            title: "Custom Dialog Demo",
-                            descriptions:
-                                "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
-                            text: "Yes",
-                          );
+                          return VoiceDialogBox(audio: data[9]['fr']);
                         });
                   },
                 ),

@@ -1,34 +1,59 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:new_wassa/DataHandler/voiceData.dart';
 import 'package:new_wassa/views/components/voiceconstants.dart';
 import 'package:new_wassa/views/styles/styles.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:provider/provider.dart';
 
-class CustomDialogBox extends StatefulWidget {
-  final String title, descriptions, text;
+class VoiceDialogBox extends StatefulWidget {
+  final dynamic audio;
 
-  const CustomDialogBox(
-      {Key? key,
-      required this.title,
-      required this.descriptions,
-      required this.text})
-      : super(key: key);
+  const VoiceDialogBox({Key? key, required this.audio}) : super(key: key);
 
   @override
-  _CustomDialogBoxState createState() => _CustomDialogBoxState();
+  _VoiceDialogBoxState createState() => _VoiceDialogBoxState();
 }
 
-class _CustomDialogBoxState extends State<CustomDialogBox> {
+class _VoiceDialogBoxState extends State<VoiceDialogBox> {
   bool _isListening = false;
   late stt.SpeechToText _speech;
   String _text = '';
+  int res = 0;
+  final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
 
   @override
   void initState() {
     super.initState();
     _speech = stt.SpeechToText();
+    setupPlaylist();
+    playAudio();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    audioPlayer.dispose();
+  }
+
+  void setupPlaylist() async {
+    List<Audio> arr = [];
+    for (String i in widget.audio) {
+      arr.add(Audio('assets/' + i));
+    }
+    audioPlayer.open(Playlist(audios: arr),
+        showNotification: false, autoStart: true);
+  }
+
+  playAudio() async {
+    await audioPlayer.play();
+  }
+
+  stopAudio() async {
+    await audioPlayer.stop();
   }
 
   @override
@@ -84,8 +109,9 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                       Navigator.of(context).pop();
                     },
                     child: Text(
-                      widget.text,
-                      style: TextStyle(fontSize: 18),
+                      //widget.text,
+                      "VALIDER",
+                      style: TextStyle(fontSize: 18, color: whiteFont),
                     )),
               ),
             ],
@@ -141,10 +167,18 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                         borderRadius: BorderRadius.all(Radius.circular(50)),
                       ),
                       child: TextFormField(
-                          minLines: 1,
-                          maxLines: 2,
+                          //maxLength: 1,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          style: new TextStyle(
+                              color: blueFont,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
-                            hintStyle: new TextStyle(color: blackFont),
+                            hintStyle: new TextStyle(
+                                color: blackFont,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
                             hintText: "Saisir le numéro ici",
                             border: new OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
@@ -181,11 +215,25 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
       );
       if (available) {
         setState(() => _isListening = true);
+        stopAudio();
         _speech.listen(
           localeId: 'fr-FR',
+          listenFor: Duration(seconds: 3),
           onResult: (val) => setState(() {
             _text = val.recognizedWords;
+            setState(() => _isListening = false);
             print('texte : ' + _text);
+            if (_text.toLowerCase().contains("un") ||
+                _text.toLowerCase().contains("1")) res = 1;
+            if (_text.toLowerCase().contains("deux") ||
+                _text.toLowerCase().contains("2")) res = 2;
+            if (_text.toLowerCase().contains("trois") ||
+                _text.toLowerCase().contains("3")) res = 3;
+            if (_text.toLowerCase().contains("quatre") ||
+                _text.toLowerCase().contains("4")) res = 4;
+            final _voiceData = Provider.of<VoiceData>(context, listen: false);
+            _voiceData.updateResponse(res);
+            print('Res : ' + _voiceData.reponse.toString());
           }),
         );
       }

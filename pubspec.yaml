@@ -43,6 +43,7 @@ dependencies:
   rounded_loading_button: ^2.0.5
   sizer: ^2.0.13
   speech_to_text: ^4.2.2
+  assets_audio_player: ^3.0.3+3
 
 
 dev_dependencies:
@@ -91,3 +92,8 @@ flutter:
     - assets/
     - assets/icon/
     - assets/images/
+    - assets/audio/
+    - assets/audio/fr/
+    - assets/audio/en/
+    - assets/audio/dioula/
+    - assets/audio/more/
