@@ -33,6 +33,8 @@ final kTitleStyle = TextStyle(
   fontSize: 26.0,
   height: 1.5,
 );
+final messagestyle = TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13.0.sp);
+
 final kSubtitleStyle = TextStyle(
   color: whiteFont,
   fontSize: 18.0,

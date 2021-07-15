@@ -54,7 +54,7 @@ abstract class PlatformTextFieldForm {
           Padding(
             padding: const EdgeInsets.only(left: 2),
             child: Text(
-              title.toLowerCase(),
+              title.toUpperCase(),
               style: inputStyle,
             ),
           ),

@@ -34,6 +34,9 @@ class _AppState extends State<App> {
               create: (context) => AppData(),
             ),
             ChangeNotifierProvider(
+              create: (context) => VoiceData(),
+            ),
+            ChangeNotifierProvider(
               create: (context) => UserAuth(),
             ),
             ChangeNotifierProvider(
